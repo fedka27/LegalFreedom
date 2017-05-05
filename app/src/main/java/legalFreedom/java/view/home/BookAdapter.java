@@ -4,8 +4,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import legalFreedom.java.view.base.BaseRecyclerAdapter;
 import legalFreedom.java.model.data.dto.Book;
+import legalFreedom.java.view.base.BaseRecyclerAdapter;
 import legalFreedom.java.view.base.RecyclerRow;
 
 
@@ -13,7 +13,7 @@ class BookAdapter extends BaseRecyclerAdapter {
 
     private OnBookListener onBookListener;
 
-    BookAdapter(){
+    BookAdapter() {
         recyclerRow.addRow(new RecyclerRow.Row<BookHolder, Book>() {
             @Override
             public boolean is(Object item) {
@@ -30,7 +30,7 @@ class BookAdapter extends BaseRecyclerAdapter {
                 bookHolder.bind(item);
 
                 bookHolder.setOnBookClickListener(v -> {
-                    if (onBookListener != null){
+                    if (onBookListener != null) {
                         onBookListener.onBookPressed(item);
                     }
                 });
@@ -47,13 +47,13 @@ class BookAdapter extends BaseRecyclerAdapter {
         this.onBookListener = onBookListener;
     }
 
-    void setBooks(List<Book> bookList){
+    void setBooks(List<Book> bookList) {
         itemList.clear();
         itemList.addAll(bookList);
         notifyDataSetChanged();
     }
 
-    interface OnBookListener{
+    interface OnBookListener {
         void onBookPressed(Book book);
     }
 }
