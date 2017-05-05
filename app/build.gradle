@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "legalFreedom"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        project.ext.set("archivesBaseName", "legalFreedom-" + defaultConfig.versionName);
+        multiDexEnabled true
+
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        develop {
+            applicationId "legalFreedom.develop"
+            multiDexEnabled true
+        }
+        staging {
+            applicationId "legalFreedom.staging"
+        }
+        production {
+            applicationId "legalFreedom"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile 'com.android.support:multidex:1.0.1'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta5'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.assertj:assertj-core:3.0.0'
+    configurations.all {
+        resolutionStrategy.force 'org.objenesis:objenesis:2.1'
+    }
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.google.dagger:dagger:2.8'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+    //    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'io.paperdb:paperdb:2.0'
+    compile files('libs/okHttp/okhttp-3.6.0.jar')
+    compile files('libs/okHttp/logging-interceptor-3.6.0.jar')
+    compile files('libs/gson-2.8.0.jar')
+    compile files('libs/retrofit/okio-1.11.0.jar')
+    compile files('libs/retrofit/retrofit-2.2.0.jar')
+    compile files('libs/retrofit/adapter-rxjava2-2.2.0.jar')
+    compile files('libs/retrofit/converter-gson-2.2.0.jar')
+    compile project(':rxandroid-2.0.1')
+    compile project(':rxbinding-2.0.0')
+    compile files('libs/rx/rxjava-2.0.8.jar')
+    compile files('libs/rx/reactive-streams-1.0.0.jar')
+    compile files('libs/glide/glide-3.7.0.jar')
+    compile files('libs/glide/glide-transformations-2.0.2-sources.jar')
+    compile project(':circleimageview-2.1.0')
+    compile project(':butterknife-8.5.1')
+    compile files('libs/butterknife/butterknife-annotations-8.5.1.jar')
+}

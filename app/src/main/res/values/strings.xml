@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LegalFreedom</string>
+    <string name="fragment_base_processing">Processing…</string>
+</resources>

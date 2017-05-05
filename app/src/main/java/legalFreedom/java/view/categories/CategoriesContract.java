@@ -1,0 +1,28 @@
+package legalFreedom.java.view.categories;
+
+import android.support.annotation.NonNull;
+
+import java.util.List;
+
+import legalFreedom.java.model.data.dto.Category;
+import legalFreedom.java.view.base.BasePresenter;
+import legalFreedom.java.view.base.BaseView;
+
+public interface CategoriesContract {
+
+    interface View extends BaseView {
+
+        void showProgress();
+
+        void setCategoryList(List<Category> cat);
+
+        void showError(String message);
+
+        void hideProgress();
+    }
+
+    interface Presenter extends BasePresenter<View> {
+
+        void loadCategories(@NonNull String bookId);
+    }
+}

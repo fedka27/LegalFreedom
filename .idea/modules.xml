@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PddWorld.iml" filepath="$PROJECT_DIR$/PddWorld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/butterknife-8.5.1/butterknife-8.5.1.iml" filepath="$PROJECT_DIR$/butterknife-8.5.1/butterknife-8.5.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/circleimageview-2.1.0/circleimageview-2.1.0.iml" filepath="$PROJECT_DIR$/circleimageview-2.1.0/circleimageview-2.1.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxandroid-2.0.1/rxandroid-2.0.1.iml" filepath="$PROJECT_DIR$/rxandroid-2.0.1/rxandroid-2.0.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxbinding-2.0.0/rxbinding-2.0.0.iml" filepath="$PROJECT_DIR$/rxbinding-2.0.0/rxbinding-2.0.0.iml" />
+    </modules>
+  </component>
+</project>
