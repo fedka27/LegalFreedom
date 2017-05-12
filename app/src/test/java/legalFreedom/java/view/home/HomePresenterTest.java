@@ -1,4 +1,5 @@
-package pddWorld.view.home;
+package legalFreedom.java.view.home;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import legalFreedom.java.model.service.HomeService;
 import legalFreedom.java.util.rx.RxSchedulersAbs;
 import legalFreedom.java.util.rx.RxSchedulersTest;
 
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -33,7 +35,10 @@ public class HomePresenterTest {
 
     @Test
     public void loadBooks() throws Exception {
-        List<Book> booksTest = Collections.singletonList(new Book(0, "TestName", "BookId_rf"));
+        long idBook = 2;
+        String nameBook = "Test Name";
+        String idBookString = "ru";
+        List<Book> booksTest = Collections.singletonList(new Book(idBook, nameBook, idBookString));
 
         when(homeService.getBooks()).thenReturn(Observable.create(subscriber -> {
             BooksResponse response = new BooksResponse(booksTest);
@@ -44,6 +49,10 @@ public class HomePresenterTest {
         homeService.getBooks()
                 .compose(rxSchedulersAbs.getComputationToMainTransformer())
                 .subscribe(booksResponse -> {
+                    Book book = booksResponse.getBooks().get(0);
+                    assertEquals(idBook, book.getId());
+                    assertEquals(nameBook, book.getName());
+                    assertEquals(idBookString, book.getBookId());
                     log(booksResponse.getBooks().toString());
                 });
 

@@ -17,7 +17,7 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public float getId() {
+    public long getId() {
         return id;
     }
 

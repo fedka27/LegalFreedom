@@ -11,7 +11,7 @@ public class CategoryService {
         this.api = api;
     }
 
-    public io.reactivex.Observable<CategoriesResponse> getCategories(String bookId) {
-        return api.getCategories(bookId).map(new ApiResponseMapper<>());
+    public io.reactivex.Observable<CategoriesResponse> getCategories(String bookId, String lang) {
+        return api.getCategories(bookId, lang).map(new ApiResponseMapper<>());
     }
 }

@@ -7,12 +7,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface Api {
-    @GET("pdd_{idBook}/cat_pdd_ru.json")
-    io.reactivex.Observable<Result<CategoriesResponse>> getCategories(@Path("idBook") String idBook);
+    @GET("pdd_{idBook}/lang_{lang}/categories.json")
+    io.reactivex.Observable<Result<CategoriesResponse>> getCategories(@Path("idBook") String idBook,
+                                                                      @Path("lang") String lang);
 
     @GET("books.json")
     io.reactivex.Observable<Result<BooksResponse>> getBooks();
-//
-//    @GET("a201609-interim.rss.investor.html")
-//    Observable<Result<BooksResponse>> getBooks();
 }

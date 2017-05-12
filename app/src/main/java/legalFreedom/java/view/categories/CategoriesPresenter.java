@@ -21,7 +21,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     @Override
     public void loadCategories(@NonNull String bookId) {
         this.bookId = bookId;
-        compositeSubscription.add(categoryService.getCategories(bookId)
+        compositeSubscription.add(categoryService.getCategories(bookId, "ru")
                 .compose(rxSchedulersAbs.getIOToMainTransformer())
                 .doOnSubscribe(disposable -> view.showProgress())
                 .subscribe(category -> {
