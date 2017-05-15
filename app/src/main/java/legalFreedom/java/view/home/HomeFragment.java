@@ -84,8 +84,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     }
 
     @Override
-    public void openCategory(String bookId) {
-        CategoriesActivity.start(getContext(), bookId);
+    public void openCategory(Book book) {
+        CategoriesActivity.start(getContext(), book);
     }
 
     @Override

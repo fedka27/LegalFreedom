@@ -27,7 +27,6 @@ android {
     productFlavors {
         develop {
             applicationId "legalFreedom.develop"
-            multiDexEnabled true
         }
         staging {
             applicationId "legalFreedom.staging"

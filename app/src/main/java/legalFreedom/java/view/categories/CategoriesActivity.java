@@ -15,21 +15,22 @@ import butterknife.BindView;
 import legalFreedom.R;
 import legalFreedom.java.injection.ComponentProvider;
 import legalFreedom.java.injection.category.CategoryModule;
+import legalFreedom.java.model.data.dto.Book;
 import legalFreedom.java.model.data.dto.Category;
 import legalFreedom.java.view.base.BaseActivity;
 
 public class CategoriesActivity extends BaseActivity implements CategoriesContract.View {
     private static final String TAG = CategoriesActivity.class.getSimpleName();
-    private static final String KEY_BOOK_ID = TAG + "_BOOK_ID";
+    private static final String KEY_BOOK = TAG + "_BOOK_ID";
     @BindView(R.id.recycler_view)
     protected RecyclerView recyclerView;
     @Inject
     CategoriesContract.Presenter presenter;
     private CategoriesAdapter categoriesAdapter;
 
-    public static void start(Context context, String bookId) {
+    public static void start(Context context, Book book) {
         Intent starter = new Intent(context, CategoriesActivity.class);
-        starter.putExtra(KEY_BOOK_ID, bookId);
+        starter.putExtra(KEY_BOOK, book);
         context.startActivity(starter);
     }
 
@@ -50,10 +51,11 @@ public class CategoriesActivity extends BaseActivity implements CategoriesContra
     @Override
     protected void onStart() {
         super.onStart();
-        String bookId = getIntent().getStringExtra(KEY_BOOK_ID);
+        Book book = (Book) getIntent().getSerializableExtra(KEY_BOOK);
         initAdapter();
 
-        presenter.loadCategories(bookId);
+        presenter.setBook(book);
+        presenter.loadCategories();
     }
 
     private void initAdapter() {

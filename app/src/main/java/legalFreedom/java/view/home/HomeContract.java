@@ -12,7 +12,7 @@ public interface HomeContract {
 
         void setBooks(List<Book> books);
 
-        void openCategory(String bookId);
+        void openCategory(Book book);
 
         void showProgress();
 

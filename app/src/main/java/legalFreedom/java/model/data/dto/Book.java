@@ -2,13 +2,18 @@ package legalFreedom.java.model.data.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable{
     @SerializedName("id")
     private long id;
     @SerializedName("name")
     private String name;
     @SerializedName("bookId")
     private String bookId;
+    @SerializedName("lang")
+    private String lang;
+
 
 
     public Book(long id, String name, String bookId) {
@@ -29,12 +34,7 @@ public class Book {
         return bookId;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", bookId='" + bookId + '\'' +
-                '}';
+    public String getLang() {
+        return lang;
     }
 }

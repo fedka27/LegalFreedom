@@ -39,7 +39,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void bookPressed(Book book) {
-        view.openCategory(book.getBookId());
+        view.openCategory(book);
     }
 
     @Override

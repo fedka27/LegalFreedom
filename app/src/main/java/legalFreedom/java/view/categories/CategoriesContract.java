@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import legalFreedom.java.model.data.dto.Book;
 import legalFreedom.java.model.data.dto.Category;
 import legalFreedom.java.view.base.BasePresenter;
 import legalFreedom.java.view.base.BaseView;
@@ -23,6 +24,7 @@ public interface CategoriesContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void loadCategories(@NonNull String bookId);
+        void setBook(@NonNull Book book);
+        void loadCategories();
     }
 }

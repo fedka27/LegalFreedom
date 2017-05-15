@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="base_url">https://raw.githubusercontent.com/fedka27/pddSNG/master/</string>
-    <!--<string name="base_url">https://www.enel.com/en/investors/</string>-->
 </resources>
