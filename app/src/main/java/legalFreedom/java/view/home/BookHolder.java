@@ -13,6 +13,8 @@ import legalFreedom.java.view.base.BaseRecyclerViewHolder;
 class BookHolder extends BaseRecyclerViewHolder {
     @BindView(R.id.title_tv)
     TextView titleTv;
+    @BindView(R.id.lang_tv)
+    TextView langTv;
     @BindView(R.id.book_card_view)
     CardView cardView;
 
@@ -20,8 +22,9 @@ class BookHolder extends BaseRecyclerViewHolder {
         super(parent, R.layout.cell_home_book);
     }
 
-    void bind(Book category) {
-        titleTv.setText(category.getName());
+    void bind(Book book) {
+        titleTv.setText(book.getName());
+        langTv.setText(book.getLang());
     }
 
     void setOnBookClickListener(View.OnClickListener onBookClickListener) {
