@@ -1,5 +1,9 @@
 package legalFreedom.java.injection.home;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
+
 import dagger.Module;
 import dagger.Provides;
 import legalFreedom.java.model.api.Api;
@@ -13,8 +17,8 @@ public class HomeModule {
 
     @Provides
     @HomeScope
-    public HomeService provideDataService(Api api){
-        return new HomeService(api);
+    public HomeService provideDataService(Context context, Gson gson, Api api){
+        return new HomeService(context, gson, api);
     }
 
     @Provides
