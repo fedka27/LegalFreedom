@@ -3,6 +3,7 @@ package legalFreedom.java.injection.presenters;
 import dagger.Module;
 import dagger.Provides;
 import legalFreedom.java.model.service.CategoryService;
+import legalFreedom.java.model.service.DetailDocumentService;
 import legalFreedom.java.model.service.HomeService;
 import legalFreedom.java.util.rx.RxSchedulersAbs;
 import legalFreedom.java.view.categories.CategoriesContract;
@@ -18,8 +19,9 @@ public class PresentersModule {
 
     @Provides
     @PresentersScope
-    DetailPageContract.Presenter provideDetailsPresenter() {
-        return new DetailPagePresenter();
+    DetailPageContract.Presenter provideDetailsPresenter(DetailDocumentService detailDocumentService,
+                                                         RxSchedulersAbs rxSchedulersAbs) {
+        return new DetailPagePresenter(detailDocumentService, rxSchedulersAbs);
     }
 
     @Provides

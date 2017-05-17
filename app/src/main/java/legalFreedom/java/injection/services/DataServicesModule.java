@@ -8,11 +8,20 @@ import dagger.Module;
 import dagger.Provides;
 import legalFreedom.java.model.api.Api;
 import legalFreedom.java.model.service.CategoryService;
+import legalFreedom.java.model.service.DetailDocumentService;
 import legalFreedom.java.model.service.HomeService;
 
 @Module
 @DataServicesScope
 public class DataServicesModule {
+
+    @Provides
+    @DataServicesScope
+    DetailDocumentService provideDetailDocumentService(Context context,
+                                                       Gson gson,
+                                                       Api api) {
+        return new DetailDocumentService(context, api, gson);
+    }
 
     @Provides
     @DataServicesScope

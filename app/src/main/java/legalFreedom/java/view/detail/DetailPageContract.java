@@ -7,9 +7,17 @@ public interface DetailPageContract {
 
     interface View extends BaseView {
 
+        void showProgressDialog();
+
+        void hideProgressDialog();
+
+        void setTextHtml(String string);
+
+        void showError(String message);
     }
 
     interface Presenter extends BasePresenter<View> {
 
+        void loadDocument(String bookId, String lang, int docId);
     }
 }

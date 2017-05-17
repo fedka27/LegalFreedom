@@ -8,8 +8,8 @@ public class Category {
     private float id;
     @SerializedName("name")
     private String name;
-    @SerializedName("path")
-    private String path;
+    @SerializedName("documentId")
+    private int documentId;
 
 
 
@@ -21,7 +21,7 @@ public class Category {
         return name;
     }
 
-    public String getPath() {
-        return path;
+    public int getDocumentId() {
+        return documentId;
     }
 }

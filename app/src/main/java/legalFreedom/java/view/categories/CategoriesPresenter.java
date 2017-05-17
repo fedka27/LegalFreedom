@@ -1,10 +1,10 @@
 package legalFreedom.java.view.categories;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import io.reactivex.disposables.CompositeDisposable;
 import legalFreedom.java.model.data.dto.Book;
+import legalFreedom.java.model.data.dto.Category;
 import legalFreedom.java.model.service.CategoryService;
 import legalFreedom.java.util.rx.RxSchedulersAbs;
 
@@ -13,7 +13,6 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     private RxSchedulersAbs rxSchedulersAbs;
     private CategoriesContract.View view;
     private CompositeDisposable compositeSubscription = new CompositeDisposable();
-    @Nullable
     private Book book;
 
     public CategoriesPresenter(CategoryService categoryService, RxSchedulersAbs rxSchedulersAbs) {
@@ -46,6 +45,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     @Override
     public void bindView(CategoriesContract.View view) {
         this.view = view;
+    }
+
+    @Override
+    public void onCategoryPressed(Category category) {
+        view.openDetailDocumentScreen(book.getBookId(), book.getLang(), category.getDocumentId());
     }
 
     @Override

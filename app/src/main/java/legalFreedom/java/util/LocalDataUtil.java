@@ -11,6 +11,12 @@ public class LocalDataUtil {
         return localPath;
     }
 
+    public static String getDocument(String bookId, String lang, int docId) {
+        String localPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "pddSNG/" + "pdd_" + bookId + "_lang_" + lang + "/" + docId + ".html";
+        L.e(TAG, " " + localPath);
+        return localPath;
+    }
+
     public static String getBooks() {
         String localPath = Environment.getExternalStoragePublicDirectory("pddSNG") + "/" + "books.json";
         L.e(TAG, " " + localPath);

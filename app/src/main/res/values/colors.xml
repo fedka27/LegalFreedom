@@ -7,4 +7,5 @@
     <color name="color_cell_pressed">#87a19191</color>
     <color name="error">#da5757</color>
     <color name="progress">#2b8dc6</color>
+    <color name="black">#000000</color>
 </resources>

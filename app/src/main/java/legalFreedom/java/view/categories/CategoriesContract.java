@@ -20,11 +20,18 @@ public interface CategoriesContract {
         void showError(String message);
 
         void hideProgress();
+
+        void openDetailDocumentScreen(@NonNull String bookId,
+                                      @NonNull String lang,
+                                      int documentId);
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void setBook(@NonNull Book book);
+
         void loadCategories();
+
+        void onCategoryPressed(Category category);
     }
 }

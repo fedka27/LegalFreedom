@@ -3,6 +3,7 @@ package legalFreedom.java.view.categories;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import legalFreedom.java.injection.ComponentProvider;
 import legalFreedom.java.model.data.dto.Book;
 import legalFreedom.java.model.data.dto.Category;
 import legalFreedom.java.view.base.BaseActivity;
+import legalFreedom.java.view.detail.DetailPageActivity;
 
 public class CategoriesActivity extends BaseActivity implements CategoriesContract.View {
     private static final String TAG = CategoriesActivity.class.getSimpleName();
@@ -45,11 +47,11 @@ public class CategoriesActivity extends BaseActivity implements CategoriesContra
         ComponentProvider.getInstance().getPresentersComponent().inject(this);
         presenter.bindView(this);
         setContentView(R.layout.ctrl_categories);
+
+        start();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void start(){
         Book book = (Book) getIntent().getSerializableExtra(KEY_BOOK);
         initAdapter();
 
@@ -62,6 +64,7 @@ public class CategoriesActivity extends BaseActivity implements CategoriesContra
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(categoriesAdapter);
+        categoriesAdapter.setOnItemClickListener(category -> presenter.onCategoryPressed(category));
     }
 
     @Override
@@ -82,5 +85,12 @@ public class CategoriesActivity extends BaseActivity implements CategoriesContra
     @Override
     public void showError(String message) {
         showBaseError(recyclerView, message);
+    }
+
+    @Override
+    public void openDetailDocumentScreen(@NonNull String bookId,
+                                         @NonNull String lang,
+                                         int documentId){
+        DetailPageActivity.start(this, bookId, lang, documentId);
     }
 }
