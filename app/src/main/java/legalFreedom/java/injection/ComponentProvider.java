@@ -2,13 +2,23 @@ package legalFreedom.java.injection;
 
 import android.app.Application;
 
+import legalFreedom.java.injection.api.ApiComponent;
+import legalFreedom.java.injection.api.ApiModule;
+import legalFreedom.java.injection.manager.ManagerComponent;
+import legalFreedom.java.injection.manager.ManagerModule;
+import legalFreedom.java.injection.presenters.PresentersComponent;
+import legalFreedom.java.injection.presenters.PresentersModule;
+import legalFreedom.java.injection.services.DataServiceComponent;
+import legalFreedom.java.injection.services.DataServicesModule;
+
 public final class ComponentProvider {
     private static volatile ComponentProvider instance;
 
     private AppComponent appComponent;
+    private ManagerComponent managerComponent;
     private ApiComponent apiComponent;
     private DataServiceComponent dataServiceComponent;
-    private ManagerComponent managerComponent;
+    private PresentersComponent presentersComponent;
 
     public static ComponentProvider getInstance() {
         if (instance == null) {
@@ -27,15 +37,12 @@ public final class ComponentProvider {
         appComponent = DaggerAppComponent.builder()
                 .appModule(appModule)
                 .build();
-        apiComponent = DaggerApiComponent.builder()
-                .appModule(appModule)
-                .build();
-        dataServiceComponent = DaggerDataServiceComponent.builder()
-                .appModule(appModule)
-                .build();
-        managerComponent = DaggerManagerComponent.builder()
-                .appModule(appModule)
-                .build();
+
+        managerComponent = appComponent.plus(new ManagerModule());
+        apiComponent = managerComponent.plus(new ApiModule());
+        dataServiceComponent = apiComponent.plus(new DataServicesModule());
+        presentersComponent = dataServiceComponent.plus(new PresentersModule());
+
     }
 
     public AppComponent getAppComponent() {
@@ -48,9 +55,9 @@ public final class ComponentProvider {
         return apiComponent;
     }
 
-    public DataServiceComponent getDataServiceComponent() {
-        checkInitialized(dataServiceComponent);
-        return dataServiceComponent;
+    public PresentersComponent getPresentersComponent() {
+        checkInitialized(presentersComponent);
+        return presentersComponent;
     }
 
     public ManagerComponent getManagerComponent() {

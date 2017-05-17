@@ -21,7 +21,7 @@ public class HomeService {
     private Api api;
     private Gson gson;
 
-    public HomeService(Context context, Gson gson, Api api) {
+    public HomeService(Api api, Gson gson, Context context) {
         this.context = context;
         this.api = api;
         this.gson = gson;

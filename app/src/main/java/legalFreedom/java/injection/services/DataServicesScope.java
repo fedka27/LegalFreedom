@@ -1,4 +1,4 @@
-package legalFreedom.java.injection.home;
+package legalFreedom.java.injection.services;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,5 +7,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HomeScope {
+@interface DataServicesScope {
 }

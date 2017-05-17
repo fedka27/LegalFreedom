@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import legalFreedom.R;
 import legalFreedom.java.injection.ComponentProvider;
-import legalFreedom.java.injection.category.CategoryModule;
 import legalFreedom.java.model.data.dto.Book;
 import legalFreedom.java.model.data.dto.Category;
 import legalFreedom.java.view.base.BaseActivity;
@@ -43,7 +42,7 @@ public class CategoriesActivity extends BaseActivity implements CategoriesContra
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ComponentProvider.getInstance().getApiComponent().plus(new CategoryModule()).inject(this);
+        ComponentProvider.getInstance().getPresentersComponent().inject(this);
         presenter.bindView(this);
         setContentView(R.layout.ctrl_categories);
     }

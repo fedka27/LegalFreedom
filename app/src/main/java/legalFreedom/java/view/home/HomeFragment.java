@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import legalFreedom.R;
 import legalFreedom.java.injection.ComponentProvider;
-import legalFreedom.java.injection.home.HomeModule;
 import legalFreedom.java.model.data.dto.Book;
 import legalFreedom.java.view.base.BaseFragment;
 import legalFreedom.java.view.categories.CategoriesActivity;
@@ -39,7 +38,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ComponentProvider.getInstance().getApiComponent().plus(new HomeModule()).inject(this);
+        ComponentProvider.getInstance().getPresentersComponent().inject(this);
         presenter.bindView(this);
         return inflater.inflate(R.layout.ctrl_home, container, false);
     }

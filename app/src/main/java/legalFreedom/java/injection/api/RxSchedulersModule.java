@@ -1,6 +1,4 @@
-package legalFreedom.java.injection;
-
-import javax.inject.Singleton;
+package legalFreedom.java.injection.api;
 
 import dagger.Module;
 import dagger.Provides;
@@ -8,10 +6,10 @@ import legalFreedom.java.util.rx.RxSchedulers;
 import legalFreedom.java.util.rx.RxSchedulersAbs;
 
 @Module
-public class UtilsModule {
+public class RxSchedulersModule {
     @Provides
-    @Singleton
-    public RxSchedulersAbs provideRxSchedulersAbs(){
+    @ApiScope
+    RxSchedulersAbs provideRxSchedulersAbs(){
         return new RxSchedulers();
     }
 }

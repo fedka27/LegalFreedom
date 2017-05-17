@@ -1,12 +1,10 @@
-package legalFreedom.java.injection;
+package legalFreedom.java.injection.api;
 
 import android.content.Context;
 
 import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,22 +19,22 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@Singleton
+@ApiScope
 @Module
 public class ApiModule {
     private static final int CONNECT_TIMEOUT_SECONDS = 15;
     private static final int READ_TIMEOUT_SECONDS = 15;
     private static final int WRITE_TIMEOUT_SECONDS = 15;
 
-    @Singleton
+    @ApiScope
     @Provides
-    protected Api provideApiInterface(Retrofit retrofit) {
+    Api provideApiInterface(Retrofit retrofit) {
         return retrofit.create(Api.class);
     }
 
-    @Singleton
+    @ApiScope
     @Provides
-    protected Retrofit provideRetrofit(Context context, Gson gson, OkHttpClient client) {
+    Retrofit provideRetrofit(Context context, Gson gson, OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.base_url))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -45,15 +43,15 @@ public class ApiModule {
                 .build();
     }
 
-    @Singleton
+    @ApiScope
     @Provides
-    protected Gson provideGson() {
+    Gson provideGson() {
         return new Gson();
     }
 
-    @Singleton
+    @ApiScope
     @Provides
-    protected OkHttpClient provideOkHttpClient(Interceptor cacheInterceptor,
+    OkHttpClient provideOkHttpClient(Interceptor cacheInterceptor,
                                                HttpLoggingInterceptor loggingInterceptor) {
         return new OkHttpClient.Builder()
                 .addNetworkInterceptor(cacheInterceptor)
@@ -69,9 +67,9 @@ public class ApiModule {
     }
 
 
-    @Singleton
+    @ApiScope
     @Provides
-    protected Interceptor provideCacheInterceptor(Context context) {
+    Interceptor provideCacheInterceptor(Context context) {
         return chain -> {
             int maxAge = 60 * 5; // read from cache for 5 minute
             int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
@@ -89,9 +87,9 @@ public class ApiModule {
         };
     }
 
-    @Singleton
+    @ApiScope
     @Provides
-    protected HttpLoggingInterceptor provideLoggingInterceptor() {
+    HttpLoggingInterceptor provideLoggingInterceptor() {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return logInterceptor;
