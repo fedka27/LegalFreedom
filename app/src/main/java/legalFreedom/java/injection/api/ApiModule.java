@@ -10,10 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 import legalFreedom.R;
 import legalFreedom.java.model.api.Api;
-import legalFreedom.java.util.ConnectionUtil;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -51,14 +48,9 @@ public class ApiModule {
 
     @ApiScope
     @Provides
-    OkHttpClient provideOkHttpClient(Interceptor cacheInterceptor,
-                                               HttpLoggingInterceptor loggingInterceptor) {
+    OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor) {
         return new OkHttpClient.Builder()
-                .addNetworkInterceptor(cacheInterceptor)
                 .addInterceptor(loggingInterceptor)
-                .authenticator((route, response) -> response.request().newBuilder()
-                        .header("Authorization", "")
-                        .build())
                 .retryOnConnectionFailure(true)
                 .connectTimeout(CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
@@ -66,26 +58,6 @@ public class ApiModule {
                 .build();
     }
 
-
-    @ApiScope
-    @Provides
-    Interceptor provideCacheInterceptor(Context context) {
-        return chain -> {
-            int maxAge = 60 * 5; // read from cache for 5 minute
-            int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
-            Request originalRequest = chain.request();
-            String cacheHeaderValue = ConnectionUtil.isOnline(context)
-                    ? "public, max-age=" + maxAge
-                    : "public, only-if-cached, max-stale=" + maxStale;
-            Request request = originalRequest.newBuilder().build();
-            okhttp3.Response response = chain.proceed(request);
-            return response.newBuilder()
-                    .removeHeader("Pragma")
-                    .removeHeader("Cache-Control")
-                    .header("Cache-Control", cacheHeaderValue)
-                    .build();
-        };
-    }
 
     @ApiScope
     @Provides

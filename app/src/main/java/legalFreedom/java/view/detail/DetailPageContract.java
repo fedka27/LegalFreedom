@@ -11,9 +11,9 @@ public interface DetailPageContract {
 
         void hideProgressDialog();
 
-        void setTextHtml(String string);
-
         void showError(String message);
+
+        void setDocument(String documentHtml);
     }
 
     interface Presenter extends BasePresenter<View> {

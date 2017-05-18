@@ -29,7 +29,7 @@ public class DetailPagePresenter implements DetailPageContract.Presenter {
                 .doOnSubscribe(disposable -> view.showProgressDialog())
                 .subscribe(textHtml -> {
                     view.hideProgressDialog();
-                    view.setTextHtml(textHtml);
+                    view.setDocument(textHtml);
                 }, throwable -> {
                     throwable.printStackTrace();
                     view.hideProgressDialog();

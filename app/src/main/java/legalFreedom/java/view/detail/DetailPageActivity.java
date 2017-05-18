@@ -20,7 +20,7 @@ public class DetailPageActivity extends BaseActivity
     private static final String KEY_BOOK_ID = TAG + "_BOOK_ID";
     private static final String KEY_LANG = TAG + "_LANG";
     private static final String KEY_DOCUMENT_ID = TAG + "_DOCUMENT_ID";
-    @BindView(R.id.document_tv)
+    @BindView(R.id.html_tv)
     TextView documentTextView;
     @Inject
     protected DetailPageContract.Presenter presenter;
@@ -72,8 +72,8 @@ public class DetailPageActivity extends BaseActivity
     }
 
     @Override
-    public void setTextHtml(String string) {
-        documentTextView.setText(HtmlSpannableUtil.getString(string));
+    public void setDocument(String documentHtml) {
+        documentTextView.setText(HtmlSpannableUtil.getString(documentHtml));
     }
 
     @Override
