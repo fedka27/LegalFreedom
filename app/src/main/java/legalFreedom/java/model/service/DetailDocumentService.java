@@ -6,51 +6,43 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.FileReader;
 
 import io.reactivex.Observable;
 import legalFreedom.java.model.api.Api;
 import legalFreedom.java.model.data.mapper.ApiResponseMapper;
-import legalFreedom.java.util.ConnectionUtil;
 import legalFreedom.java.util.LocalDataUtil;
 import okhttp3.ResponseBody;
 
 public class DetailDocumentService {
-    private Context context;
     private Api api;
-    private Gson gson;
 
-    public DetailDocumentService(Context context, Api api, Gson gson) {
-        this.context = context;
+    public DetailDocumentService(Api api) {
         this.api = api;
-        this.gson = gson;
     }
 
     public Observable<String> getDocumentHtml(@NonNull String bookId,
                                               @NonNull String lang,
                                               int documentId) {
-        if (ConnectionUtil.isOnline(context)) {
-            return api.getDocument(bookId, lang, documentId)
-                    .map(new ApiResponseMapper<>())
-                    .map(ResponseBody::string);
-        } else {
-            return io.reactivex.Observable.create(observableEmitter -> {
-                InputStream inputStream = new FileInputStream(new File(LocalDataUtil.getDocument(bookId, lang, documentId)));
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
+        return api.getDocument(bookId, lang, documentId)
+                .map(new ApiResponseMapper<>())
+                .map(ResponseBody::string);
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
+    }
 
-                inputStream.close();
-                observableEmitter.onNext(stringBuilder.toString());
-            });
-        }
+    public Observable<String> getDocumentHtmlOffline(String bookId, String lang, int docId) {
+        return io.reactivex.Observable.create(observableEmitter -> {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(LocalDataUtil
+                    .getDocument(bookId, lang, docId)));
+            String receiveString = "";
+            StringBuilder stringBuilder = new StringBuilder();
+
+            while ((receiveString = bufferedReader.readLine()) != null) {
+                stringBuilder.append(receiveString);
+            }
+
+            bufferedReader.close();
+            observableEmitter.onNext(stringBuilder.toString());
+        });
     }
 }

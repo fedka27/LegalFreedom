@@ -2,8 +2,6 @@ package legalFreedom.java.view.categories;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import legalFreedom.java.model.data.dto.Book;
 import legalFreedom.java.model.data.dto.Category;
 import legalFreedom.java.view.base.BasePresenter;
@@ -15,23 +13,23 @@ public interface CategoriesContract {
 
         void showProgress();
 
-        void setCategoryList(List<Category> cat);
-
         void showError(String message);
 
         void hideProgress();
 
-        void openDetailDocumentScreen(@NonNull String bookId,
-                                      @NonNull String lang,
-                                      int documentId);
+        void filterCategoriesBy(String newText);
+
+        void openDetailDocumentScreen(String title, @NonNull String documentHtmlText);
+
+        void showProgress(String whatIsLoading);
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void setBook(@NonNull Book book);
 
-        void loadCategories();
-
         void onCategoryPressed(Category category);
+
+        void search(String newText);
     }
 }

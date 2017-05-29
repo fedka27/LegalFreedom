@@ -1,7 +1,5 @@
 package legalFreedom.java.injection.services;
 
-import android.content.Context;
-
 import com.google.gson.Gson;
 
 import dagger.Module;
@@ -17,25 +15,21 @@ public class DataServicesModule {
 
     @Provides
     @DataServicesScope
-    DetailDocumentService provideDetailDocumentService(Context context,
-                                                       Gson gson,
-                                                       Api api) {
-        return new DetailDocumentService(context, api, gson);
+    DetailDocumentService provideDetailDocumentService(Api api) {
+        return new DetailDocumentService(api);
     }
 
     @Provides
     @DataServicesScope
-    HomeService provideHomeService(Context context,
-                                   Gson gson,
+    HomeService provideHomeService(Gson gson,
                                    Api api) {
-        return new HomeService(api, gson, context);
+        return new HomeService(api, gson);
     }
 
     @Provides
     @DataServicesScope
-    CategoryService provideCategoryService(Context context,
-                                           Gson gson,
+    CategoryService provideCategoryService(Gson gson,
                                            Api api) {
-        return new CategoryService(api, gson, context);
+        return new CategoryService(api, gson);
     }
 }

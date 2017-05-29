@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +17,8 @@ import butterknife.BindView;
 import legalFreedom.R;
 import legalFreedom.java.injection.ComponentProvider;
 import legalFreedom.java.model.data.dto.Book;
+import legalFreedom.java.model.data.dto.Category;
+import legalFreedom.java.util.NotificationUtil;
 import legalFreedom.java.view.base.BaseFragment;
 import legalFreedom.java.view.categories.CategoriesActivity;
 
@@ -24,6 +27,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     RecyclerView recyclerView;
     @Inject
     HomeContract.Presenter presenter;
+    private NotificationUtil notificationUtil;
     private BookAdapter adapter;
 
     public static HomeFragment newInstance() {
@@ -40,12 +44,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ComponentProvider.getInstance().getPresentersComponent().inject(this);
         presenter.bindView(this);
-        return inflater.inflate(R.layout.ctrl_home, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        notificationUtil = new NotificationUtil(getContext(), recyclerView);
         initAdapter();
     }
 
@@ -69,22 +74,27 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public void showProgress() {
-        showBaseProgress();
+        notificationUtil.showProgress();
+    }
+
+    @Override
+    public void showProgress(String whatIsLoading) {
+        notificationUtil.showProgress(whatIsLoading);
     }
 
     @Override
     public void hideProgress() {
-        hideBaseProgress();
+        notificationUtil.hideProgress();
     }
 
     @Override
     public void showError(String message) {
-        showBaseError(message);
+        notificationUtil.showError(message);
     }
 
     @Override
-    public void openCategory(Book book) {
-        CategoriesActivity.start(getContext(), book);
+    public void openCategoryActivity(Book book, ArrayList<Category> categoryList) {
+        CategoriesActivity.initViews(getContext(), book, categoryList);
     }
 
     @Override

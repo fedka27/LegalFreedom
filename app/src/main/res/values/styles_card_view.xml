@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FitCardView" parent="CardView">
+        <item name="cardElevation">@dimen/margin_tiny</item>
+    </style>
+
+    <style name="FitCardView.Cell">
+        <item name="android:clickable">true</item>
+        <item name="cardBackgroundColor">@color/color_cell_normal</item>
+    </style>
+
+</resources>

@@ -14,7 +14,7 @@ class CategoriesAdapter extends BaseRecyclerAdapter {
     @Nullable
     private OnCategoryClickListener onCategoryClickListener;
 
-    CategoriesAdapter(){
+    CategoriesAdapter() {
         recyclerRow.addRow(new RecyclerRow.Row<CategoryHolder, Category>() {
             @Override
             public boolean is(Object item) {
@@ -30,7 +30,7 @@ class CategoriesAdapter extends BaseRecyclerAdapter {
             public void bind(CategoryHolder categoryHolder, Category item) {
                 categoryHolder.bind(item);
                 categoryHolder.getView().setOnClickListener(v -> {
-                    if (onCategoryClickListener != null){
+                    if (onCategoryClickListener != null) {
                         onCategoryClickListener.onClick(item);
                     }
                 });
@@ -43,16 +43,26 @@ class CategoriesAdapter extends BaseRecyclerAdapter {
         });
     }
 
-    void setCategories(List<Category> categoryList){
-        itemList.addAll(categoryList);
+    void setCategories(List<Category> categoryList) {
+        setItemList(categoryList);
         notifyDataSetChanged();
     }
 
-    void setOnItemClickListener(OnCategoryClickListener onCategoryClickListener){
+    @Override
+    public boolean isEqualsItem(Object objects, String query) {
+        if (objects instanceof Category) {
+            if (((Category) objects).getName().toUpperCase().contains(query.toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void setOnItemClickListener(OnCategoryClickListener onCategoryClickListener) {
         this.onCategoryClickListener = onCategoryClickListener;
     }
 
-    interface OnCategoryClickListener{
+    interface OnCategoryClickListener {
         void onClick(Category category);
     }
 }

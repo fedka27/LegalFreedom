@@ -2,16 +2,16 @@ package legalFreedom.java.model.data.response;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import legalFreedom.java.model.data.dto.Category;
 
 public class CategoriesResponse extends ResultResponse{
     @SerializedName("cat")
-    private List<Category> cat;
+    private ArrayList<Category> categoryList;
 
     private CategoriesResponse(Builder builder) {
-        cat = builder.cat;
+        categoryList = builder.cat;
     }
 
     public static Builder newBuilder() {
@@ -20,22 +20,22 @@ public class CategoriesResponse extends ResultResponse{
 
     public static Builder newBuilder(CategoriesResponse copy) {
         Builder builder = new Builder();
-        builder.cat = copy.cat;
+        builder.cat = copy.categoryList;
         return builder;
     }
 
-    public List<Category> getCat() {
-        return cat;
+    public ArrayList<Category> getCategoryList() {
+        return categoryList;
     }
 
 
     public static final class Builder {
-        private List<Category> cat;
+        private ArrayList<Category> cat;
 
         private Builder() {
         }
 
-        public Builder cat(List<Category> val) {
+        public Builder cat(ArrayList<Category> val) {
             cat = val;
             return this;
         }

@@ -82,3 +82,4 @@ dependencies {
     compile project(':butterknife-8.5.1')
     compile files('libs/butterknife/butterknife-annotations-8.5.1.jar')
 }
+

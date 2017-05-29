@@ -1,10 +1,12 @@
 package legalFreedom.java.view.home;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import legalFreedom.java.view.base.BaseView;
 import legalFreedom.java.model.data.dto.Book;
+import legalFreedom.java.model.data.dto.Category;
 import legalFreedom.java.view.base.BasePresenter;
+import legalFreedom.java.view.base.BaseView;
 
 public interface HomeContract {
 
@@ -12,9 +14,11 @@ public interface HomeContract {
 
         void setBooks(List<Book> books);
 
-        void openCategory(Book book);
+        void openCategoryActivity(Book book, ArrayList<Category> categoryList);
 
         void showProgress();
+
+        void showProgress(String whatIsLoading);
 
         void hideProgress();
 

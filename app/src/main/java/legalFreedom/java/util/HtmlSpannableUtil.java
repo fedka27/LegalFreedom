@@ -1,19 +1,16 @@
 package legalFreedom.java.util;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.StringRes;
 import android.text.Html;
 import android.text.Spanned;
 
-import legalFreedom.java.injection.ComponentProvider;
-
 
 public class HtmlSpannableUtil {
 
-    public static Spanned getString(@StringRes int id) {
-        return getSpanned(ComponentProvider.getInstance().getAppComponent()
-                .getContext()
-                .getString(id));
+    public static Spanned getString(Context context, @StringRes int id) {
+        return getSpanned(context.getString(id));
     }
 
     public static Spanned getString(String string) {

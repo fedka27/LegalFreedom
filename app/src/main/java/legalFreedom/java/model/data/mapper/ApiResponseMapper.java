@@ -1,6 +1,5 @@
 package legalFreedom.java.model.data.mapper;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -9,10 +8,8 @@ import java.io.IOException;
 
 import legalFreedom.java.injection.ComponentProvider;
 import legalFreedom.java.model.data.exception.ApiResponseException;
-import legalFreedom.java.model.data.exception.NoInternetException;
 import legalFreedom.java.model.data.exception.UnauthorizedException;
 import legalFreedom.java.model.data.response.ResultResponse;
-import legalFreedom.java.util.ConnectionUtil;
 import legalFreedom.java.util.L;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava2.Result;
@@ -35,19 +32,14 @@ public class ApiResponseMapper<R> implements io.reactivex.functions.Function<Res
     }
 
     private void handleInternetException(Throwable throwable) {
-        Context context = ComponentProvider.getInstance().getAppComponent().getContext();
-        if (!ConnectionUtil.isOnline(context)) {
-            throw new NoInternetException();
-        } else {
-            throw new ApiResponseException(throwable);
-        }
+        throw new ApiResponseException(throwable);
     }
 
     private void handleHttpException(Response<R> response) {
         int responseCode = response.raw().code();
         if (responseCode == HTTP_CODE_UNAUTHORIZED || responseCode == HTTP_CODE_FORBIDDEN) {
             throw new UnauthorizedException();
-        } else if (responseCode == HTTP_CODE_NOT_FOUND){
+        } else if (responseCode == HTTP_CODE_NOT_FOUND) {
             L.e(getClass().getSimpleName(), response.message());
             throw new ApiResponseException(response.message());
         } else {

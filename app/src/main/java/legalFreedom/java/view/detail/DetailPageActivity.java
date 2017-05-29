@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -12,24 +13,26 @@ import butterknife.BindView;
 import legalFreedom.R;
 import legalFreedom.java.injection.ComponentProvider;
 import legalFreedom.java.util.HtmlSpannableUtil;
+import legalFreedom.java.util.NotificationUtil;
 import legalFreedom.java.view.base.BaseActivity;
+import legalFreedom.java.view.widgets.toolbars.TitleToolbar;
 
 public class DetailPageActivity extends BaseActivity
         implements DetailPageContract.View {
     private static final String TAG = DetailPageActivity.class.getSimpleName();
-    private static final String KEY_BOOK_ID = TAG + "_BOOK_ID";
-    private static final String KEY_LANG = TAG + "_LANG";
-    private static final String KEY_DOCUMENT_ID = TAG + "_DOCUMENT_ID";
+    private static final String KEY_TITLE = TAG + "_TITLE";
+    private static final String KEY_DOCUMENT = TAG + "_DOCUMENT_ID";
+    @BindView(R.id.toolbar)
+    TitleToolbar toolbar;
     @BindView(R.id.html_tv)
     TextView documentTextView;
+    private NotificationUtil notificationUtil;
     @Inject
     protected DetailPageContract.Presenter presenter;
 
-    public static void start(Activity activity, String bookId, String lang, int documentId) {
+    public static void start(Activity activity, String title, String documentHtmlText) {
         Intent intent = new Intent(activity, DetailPageActivity.class);
-        intent.putExtra(KEY_BOOK_ID, bookId)
-                .putExtra(KEY_LANG, lang)
-                .putExtra(KEY_DOCUMENT_ID, documentId);
+        intent.putExtra(KEY_TITLE, title).putExtra(KEY_DOCUMENT, documentHtmlText);
         activity.startActivity(intent);
     }
 
@@ -50,34 +53,32 @@ public class DetailPageActivity extends BaseActivity
         initPresenter();
 
         setContentView(R.layout.activity_detail_page);
+        notificationUtil = new NotificationUtil(this, documentTextView);
+        initViews();
 
-        start();
     }
-    private void start(){
-        String bookId = getIntent().getStringExtra(KEY_BOOK_ID);
-        String lang = getIntent().getStringExtra(KEY_LANG);
-        int docId = getIntent().getIntExtra(KEY_DOCUMENT_ID, 0);
 
-        presenter.loadDocument(bookId, lang, docId);
+    private void initViews() {
+        String textDocument = getIntent().getStringExtra(KEY_DOCUMENT);
+        String title = getIntent().getStringExtra(KEY_TITLE);
+        toolbar.setTitle(title);
+        documentTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        documentTextView.setText(HtmlSpannableUtil.getString(textDocument));
     }
+
 
     @Override
     public void showProgressDialog() {
-        showBaseProgress(documentTextView);
+        notificationUtil.showProgress();
     }
 
     @Override
     public void hideProgressDialog() {
-        hideBaseProgress();
-    }
-
-    @Override
-    public void setDocument(String documentHtml) {
-        documentTextView.setText(HtmlSpannableUtil.getString(documentHtml));
+        notificationUtil.hideProgress();
     }
 
     @Override
     public void showError(String message) {
-        showBaseError(documentTextView, message);
+        notificationUtil.showError(message);
     }
 }

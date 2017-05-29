@@ -8,4 +8,6 @@
     <dimen name="margin_normal">16dp</dimen>
 
     <dimen name="book_height">200dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="clickable_size">48dp</dimen>
 </resources>

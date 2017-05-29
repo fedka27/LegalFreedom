@@ -12,12 +12,9 @@ public interface DetailPageContract {
         void hideProgressDialog();
 
         void showError(String message);
-
-        void setDocument(String documentHtml);
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void loadDocument(String bookId, String lang, int docId);
     }
 }

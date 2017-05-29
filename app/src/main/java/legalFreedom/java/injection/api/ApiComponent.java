@@ -7,7 +7,7 @@ import legalFreedom.java.injection.services.DataServiceComponent;
 import legalFreedom.java.injection.services.DataServicesModule;
 
 @ApiScope
-@Subcomponent(modules = {ApiModule.class, RxSchedulersModule.class})
+@Subcomponent(modules = {ApiModule.class, UtilsModule.class})
 public interface ApiComponent {
 
     DataServiceComponent plus(DataServicesModule dataServicesModule);

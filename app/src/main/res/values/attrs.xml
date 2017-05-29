@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseToolbar">
+        <attr name="titleToolbarText" format="string" />
+    </declare-styleable>
+    <declare-styleable name="TitleToolbar">
+        <attr name="visibleBackButton" format="boolean"/>
+    </declare-styleable>
+</resources>

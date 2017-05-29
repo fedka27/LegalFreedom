@@ -48,8 +48,7 @@ class BookAdapter extends BaseRecyclerAdapter {
     }
 
     void setBooks(List<Book> bookList){
-        itemList.clear();
-        itemList.addAll(bookList);
+        setItemList(bookList);
         notifyDataSetChanged();
     }
 
