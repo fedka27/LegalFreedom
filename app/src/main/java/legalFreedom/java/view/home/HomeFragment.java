@@ -23,8 +23,10 @@ import legalFreedom.java.view.categories.CategoriesActivity;
 public class HomeFragment extends BaseFragment implements HomeContract.View {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
     @Inject
     HomeContract.Presenter presenter;
+
     private BookAdapter adapter;
 
     public static HomeFragment newInstance() {
